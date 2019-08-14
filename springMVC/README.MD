@@ -2,3 +2,4 @@
 
 #### 1.maven项目无法被部署到tomcat上。解决办法：选择maven项目的properties，再选择Project facets，勾选Dynamic Web  Module和JavaScript。
 #### 2.JSP中无法使用EL表达式。在对应的JSP文件开头加上  <%@ page isELIgnored="false" %>
+#### 3.要在项目的Depolyment Assembly中，把test相关ermove掉。并添加一个src/main/webapp和一个Maven Denpendencies
