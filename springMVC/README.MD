@@ -4,3 +4,4 @@
 #### 2.JSP中无法使用EL表达式。在对应的JSP文件开头加上  <%@ page isELIgnored="false" %>
 #### 3.要在项目的Depolyment Assembly中，把test相关ermove掉。并添加一个src/main/webapp和一个Maven Denpendencies
 #### 4.webapp下的文件才可以直接访问
+#### 5.如果想通过前端的URL进行赋值，则在JSP界面运用EL表达式前需要在key前加上param. 如${param.id}
