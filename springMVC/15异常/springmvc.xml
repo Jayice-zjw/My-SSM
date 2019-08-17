@@ -1,0 +1,2 @@
+<!-- 抛出异常时，就调用这个类 -->
+	<bean class="com.jay.aaa.excResolver"></bean>
