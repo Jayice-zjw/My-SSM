@@ -13,6 +13,8 @@
 			type="text" name="age"> <br> <input type="submit"
 			value="提交">
 	</form>
+	
+	<a href="/map1/jsp/result.jsp">dian</a>
 
 </body>
 </html>
