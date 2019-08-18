@@ -10,7 +10,7 @@ public class MyInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		//登陆成功后会往session中存放数据
 		String user = (String) request.getSession().getAttribute("user");
 		// 这里仅判断用户名为monkey1024的用户是否已登录
 		if (!"monkey1024".equals(user)) {
