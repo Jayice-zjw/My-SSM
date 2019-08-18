@@ -24,3 +24,7 @@ public class MyInterceptor implements HandlerInterceptor {
         System.out.println("拦截器中的afterCompletion方法");
     }
 }
+
+//拦截器中的preHandle方法
+//拦截器中的postHandle方法
+//拦截器中的afterCompletion方法
