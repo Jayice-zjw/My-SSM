@@ -45,9 +45,7 @@ public class studentDaoImpl implements studentDao {
 		}
 
 	}
-  
-  
-  //查找
+
 	@Override
 	public List<Student> selectAllStudent() {
 		List<Student> allStudents=null;
@@ -55,6 +53,16 @@ public class studentDaoImpl implements studentDao {
 			allStudents=sqlSession.selectList("selectAllStudent");
 		}
 		return allStudents;
+	}
+
+	@Override
+	public Student selectStudent(int id) {
+		Student student=null;
+		try(SqlSession sqlSession=util.getSqlSession()){
+			student=sqlSession.selectOne("selectStudent",id);
+			return student;
+		}
+		
 	}
 
 }
