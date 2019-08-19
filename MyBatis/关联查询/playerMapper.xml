@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace设为Dao接口 -->
+<mapper namespace="com.jay.dao.PlayerDao">
+	<resultMap id="playerMap" type="com.jay.bean.Player">
+		<!--team中的基本属性 -->
+		<id column="pid" property="id" />
+		<result column="pname" property="name" />
+
+		<!--关联属性的映射关系 -->
+		<association property="team" javaType="com.jay.bean.Team">
+			<id column="teamid" property="id" />
+			<result column="tname" property="name" />
+		</association>
+	</resultMap>
+
+
+	<select id="selectPlayerById" resultMap="playerMap">
+		SELECT t.id teamid,t.name tname,p.id pid,p.name pname
+		FROM t_team t , t_player p
+		WHERE t.id = p.tid and p.id=#{id}
+	</select>
+</mapper>
