@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace设为Dao接口 -->
+<mapper namespace="com.jay.dao.studentDao">
+
+	<select id="selectStudents" resultType="com.jay.bean.Student">
+		SELECT id,name,age,score
+		FROM t_student
+		WHERE 1=1
+		<if test="name != null and name != ''">
+			AND name LIKE '%' #{name} '%'
+		</if>
+		<if test="age>=0">
+			AND age > #{age}
+		</if>
+
+	</select>
+</mapper>
