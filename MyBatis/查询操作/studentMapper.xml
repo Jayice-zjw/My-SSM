@@ -21,5 +21,9 @@
 	<select id="selectAllStudent" resultType="com.jay.bean.Student">
 		SELECT * FROM t_student;
 	</select>
+	
+	<select id="selectStudent" resultType="com.jay.bean.Student">
+		SELECT *FROM t_student WHERE id=#{id};
+	</select>
 
 </mapper>
