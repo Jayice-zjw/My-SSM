@@ -39,10 +39,15 @@ public class test01 {
 	public void selectAllStudent() {
 		studentDao = new studentDaoImpl();
 		List<Student> res=studentDao.selectAllStudent();
-		for(Student s:res) {
-			System.out.print(s.getId());
-			System.out.print(s.getName());
-			System.out.println();
-		}
+		res.forEach(r->{
+			System.out.println(r);
+		});
+	}
+	
+	@Test
+	public void selectStudent1() {
+		studentDao=new studentDaoImpl();
+		Student student=studentDao.selectStudent(1);
+		System.out.println(student);
 	}
 }
