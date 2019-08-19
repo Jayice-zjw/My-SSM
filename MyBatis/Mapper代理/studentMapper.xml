@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!-- namespace设为Dao接口 -->
+<mapper namespace="com.jay.dao.studentDao">
+	<!--parameterType可省略 -->
+
+	<insert id="insertStudent" parameterType="com.jay.bean.Student">
+		INSERT INTO
+		t_student(name,age,score) VALUES (#{name},#{age},#{score})
+	</insert>
+
+	<delete id="deleteStudent">
+		DELETE FROM t_student where id=#{id}
+	</delete>
+
+	<update id="updateStudent">
+		UPDATE t_student set name=#{name},age=#{age},score=#{score} where id=#{id}
+	</update>
+	
+	<select id="selectAllStudent" resultType="com.jay.bean.Student">
+		SELECT * FROM t_student;
+	</select>
+	
+	<select id="selectStudent" resultType="com.jay.bean.Student">
+		SELECT *FROM t_student WHERE id=#{id};
+	</select>
+	
+	<select id="likeSearch" resultType="com.jay.bean.Student">
+		SELECT *FROM t_student WHERE name LIKE '%' #{name} '%';
+	</select>
+
+</mapper>
