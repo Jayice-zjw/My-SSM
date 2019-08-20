@@ -23,6 +23,7 @@ public class test1 {
 	@Test
 	public void springType() {
 		//读取spring配置文件
+		//在读取配置文件的时候，已经把bean中的所有类给构造好了。
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		// 从spring中获取对象
 		StudentService studentService = (StudentService) context.getBean("studentService");
