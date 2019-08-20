@@ -1,0 +1,2 @@
+<bean id="studentService"
+		scope="prototype" class="com.jay.service.impl.StudentServiceImpl" />
