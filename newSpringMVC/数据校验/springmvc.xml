@@ -1,0 +1,6 @@
+<!--验证器-->
+    <bean id="Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+    <!--注册注解驱动-->
+    <mvc:annotation-driven validator="Validator"/>
