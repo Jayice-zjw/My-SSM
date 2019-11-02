@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jay.dao.TeamDao">
+
+    <resultMap id="teamMap" type="Team">
+        <!--team中的基本属性-->
+        <id column="teamid" property="id"/>
+        <result column="tname" property="name"/>
+
+        <!-- ofType就是泛型 -->
+        <!--关联属性的映射关系-->
+        <collection property="playerList" ofType="Player">
+            <id column="pid" property="id"/>
+            <result column="pname" property="name"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectTeamById" resultMap="teamMap">
+        SELECT t.id teamid,t.name tname,p.id pid,p.name pname
+        FROM team t , player p
+        WHERE t.id = p.tid and t.id=#{id}
+    </select>
+</mapper>
