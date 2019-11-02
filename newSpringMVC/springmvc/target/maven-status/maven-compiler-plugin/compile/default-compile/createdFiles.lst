@@ -1,0 +1,6 @@
+com\jay\controller\Rest.class
+com\jay\controller\ExceptionResolver.class
+com\jay\controller\regist1.class
+com\jay\bean\Student.class
+com\jay\controller\PermissionInterceptor.class
+com\jay\controller\FirstController.class
