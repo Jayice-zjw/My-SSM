@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jay.dao.StudentDao">
+    <insert id="insertStudent" parameterType="stu">
+        INSERT INTO student (name,age,score) VALUES (#{name},#{age},#{score})
+        <!-- 这句可以为student实例注入自增id -->
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+
+    <delete id="deleteStudent">
+        DELETE FROM student WHERE id=#{id}
+    </delete>
+
+    <update id="updateStudent">
+        UPDATE student set name=#{name},age=#{age},score=#{score} WHERE id= #{id}
+    </update>
+    
+    <select id="selectStudentList" resultType="stu">
+        SELECT * FROM student
+    </select>
+
+    <select id="selectOneStudent" resultType="stu">
+        SELECT * FROM student where id=#{id}
+    </select>
+
+
+
+    <!-- 动态sql -->
+    <select id="selectIf" resultType="stu">
+        SELECT * FROM student WHERE 1=1
+        <if test="name!=null and name!=''">
+            AND name LIKE '%' #{name} '%'
+        </if> 
+    </select>
+
+    <select id="selectChoose" resultType="stu">
+        SELECT id,name,age,score
+        FROM student
+        <where>
+            <!-- 选择：通过choose标签实现下面功能若姓名不空，则按照姓名查询；若姓名为空，则按照年龄查询；若没有查询条件，则没有查询结果。只有一个会被执行 -->
+            <choose>
+                <when test="name != null and name != ''">
+                    name LIKE '%' #{name} '%'
+                </when>
+                <when test="age>=0">
+                    age > #{age}
+                </when>
+                <otherwise>
+                    1 != 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+</mapper>

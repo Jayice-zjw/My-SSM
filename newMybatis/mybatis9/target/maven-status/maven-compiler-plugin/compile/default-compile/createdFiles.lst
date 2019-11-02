@@ -1,0 +1,4 @@
+com\jay\bean\Student.class
+com\jay\test\StudentTest.class
+com\jay\util\MybatisUtil.class
+com\jay\dao\StudentDao.class
