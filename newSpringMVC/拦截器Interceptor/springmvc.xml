@@ -1,0 +1,10 @@
+ //在springmvc.xml中进行注册
+ 
+ <!--注册拦截器-->
+<mvc:interceptors>
+    <mvc:interceptor>
+    //表示拦截所有controller
+        <mvc:mapping path="/**"/>
+        <bean class="com.xxx.xxx.xxx"/>
+    </mvc:interceptor>
+</mvc:interceptors>
