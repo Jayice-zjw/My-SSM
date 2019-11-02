@@ -1,0 +1,6 @@
+<!-- 数据检验依赖 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.9.Final</version>
+    </dependency>
