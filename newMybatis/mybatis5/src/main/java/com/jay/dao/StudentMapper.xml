@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jayice">
+    <insert id="insertStudent" parameterType="stu">
+        INSERT INTO student (name,age,score) VALUES (#{name},#{age},#{score})
+        <!-- 这句可以为student实例注入自增id -->
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+
+    <delete id="deleteStudent">
+        DELETE FROM student WHERE id=#{id}
+    </delete>
+
+    <update id="updateStudent">
+        UPDATE student set name=#{name},age=#{age},score=#{score} WHERE id= #{id}
+    </update>
+
+</mapper>
