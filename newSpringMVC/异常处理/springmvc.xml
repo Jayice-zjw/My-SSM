@@ -1,0 +1,2 @@
+//在springmvc.xml中加入这一句，注册异常处理器
+<bean class="com.jay.controller.ExceptionResolver"></bean>
