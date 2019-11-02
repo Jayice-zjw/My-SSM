@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jay.dao.TeamDao">
+
+    <!--根据team的id查找player-->
+    <select id="selectPlayerByTeamId" resultType="Player">
+    select id,name from player WHERE tid=#{id}
+</select>
+
+    <!--关联属性映射关系-->
+    <!--集合的数据来自select查询，该查询的条件是selectTeamByIdAlone查询出的id-->
+    <resultMap id="teamMapAlone" type="t">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="playerList" ofType="Player" select="selectPlayerByTeamId" column="id"/>
+    </resultMap>
+
+
+    <select id="selectTeamByIdAlone" resultMap="teamMapAlone">
+    SELECT id,name FROM team where id=#{id}
+</select>
+</mapper>
