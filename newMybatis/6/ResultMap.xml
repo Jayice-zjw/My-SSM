@@ -1,0 +1,19 @@
+//在实际开发中有时候会遇到数据库表中的字段名与实体类中的属性名不一致的情况，例如在student表中有一个字段名叫做password，
+//然后在其对应的Student实体类中叫做pwd，此时要想进行查询操作的话，可以通过以下两种方式解决
+
+<select id="selectStudentById" resultType="student">
+    SELECT id,name,age,score,password pwd FROM student where id=#{id}
+</select>
+
+//或者
+
+<resultMap id="studentMapper" type="student">
+    <id column="id" property="id"/>
+    <result column="password" property="pwd"/>
+</resultMap>
+
+<select id="selectStudentById" resultMap="studentMapper">
+    SELECT id,name,age,score,password FROM t_student where id=#{id}
+</select>
+
+在resultMap中添加了一个id的属性来指定主键，这样子可以提高mybatis的查询性能。resultMap中的type属性用来指定要映射的实体类
