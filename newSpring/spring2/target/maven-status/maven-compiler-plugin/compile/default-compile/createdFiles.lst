@@ -1,0 +1,8 @@
+com\jay\service\StudentService.class
+com\jay\bean\MyFactory.class
+com\jay\dao\UserDao.class
+com\jay\service\impl\UserServiceImpl.class
+com\jay\service\impl\StudentServiceImpl.class
+com\jay\service\UserService.class
+com\jay\test\test.class
+com\jay\dao\impl\UserDaoImpl.class
