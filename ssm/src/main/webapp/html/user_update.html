@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>monkey1024</title>
+    <link href="../css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="page-header"></div>
+<div class="container">
+    <form id="user-form" style="max-width: 330px;padding: 15px;margin: 0 auto;">
+        <input type="hidden" id="id">
+        <div class="form-group">
+            <label for="name">姓名:</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="phone">手机:</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="birthday">生日:</label>
+            <input type="date" class="form-control" id="birthday" name="birthday">
+        </div>
+        <div class="form-group">
+            <label for="address">地址:</label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+
+        <button type="button" class="btn btn-sm btn-primary">修改</button>
+    </form>
+</div>
+</body>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script>
+    $(function () {
+
+        //从url中获取携带的参数
+        var userId = location.search.split("=");
+
+        $("#userId").val(userId[1]);
+
+        //查询要修改的数据
+        $.ajax({
+            url:"/users/"+userId[1],
+            type:"get",
+            dataType:"json",
+            success:function (result) {
+                $("#name").val(result.name);
+                $("#phone").val(result.phone);
+                $("#address").val(result.address);
+                $("#birthday").val(result.birthday);
+            }
+        });
+
+
+        $(".btn-primary").click(function () {
+
+            var jsonForm= $('#user-form').serializeArray();
+
+            var jsonData = {};
+
+            $.each(jsonForm,function (i,v) {
+                jsonData[v.name] = v.value;
+            });
+
+            var params = JSON.stringify(jsonData);
+
+            $.ajax({
+                url:"/users/"+userId[1],
+                type:"put",
+                data:params,
+                dataType:"json",
+                contentType:"application/json",
+                success:function (result) {
+                    if (result == "success"){
+                        $(location).attr('href', '/html/user_list.html');
+                    }else{
+                        //提示信息
+                        var msg = '<div class="alert alert-warning" role="alert">添加失败!</div>';
+                        $('#msg').html(msg);
+
+                        setTimeout(function(){
+                            $('#msg').empty();
+                        },2000);
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+</html>

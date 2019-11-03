@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>monkey1024</title>
+    <link href="../css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container theme-showcase" role="main">
+    <div id="msg"></div>
+    <div class="page-header">
+        <input type="text" id="user-id" name="id" placeholder="请输入id">
+        <button id="query" type="button" class="btn btn-sm btn-primary">查询</button>
+        <button id="add" type="button" class="btn btn-sm btn-success">添加</button>
+    </div>
+    <div class="row">
+        <div class="">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>手机</th>
+                    <th>生日</th>
+                    <th>地址</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script>
+    $(function () {
+        //查找
+        getAll();
+
+        //绑定删除按钮的点击事件
+        $("#tbody").on("click", ".btn-info", function () {
+            var flag = confirm("是否删除？");
+            if(flag){
+                deleteUser(this);
+            }
+        });
+
+        //绑定修改按钮的点击事件
+        $("#tbody").on("click", ".btn-warning", function () {
+            var userId = this.parentNode.parentNode.firstChild.innerHTML;
+            $(location).attr('href', '/html/user_update.html?id='+userId);
+
+        });
+
+        //绑定添加按钮的点击事件
+        $("#add").click(function () {
+            $(location).attr('href', '/html/user_add.html');
+        });
+
+        $("#query").click(function () {
+            var userId = $("#user-id").val();
+            if(userId != ""){
+                getUserById(userId);
+            }else{
+                getAll();
+            }
+
+        });
+
+    });
+
+
+    function getUserById(userId) {
+        $.ajax({
+            url:"/users/"+userId,
+            type:"get",
+            dataType:"json",
+            success:function (result) {
+                var  dataTR =
+                    "<tr>" +
+                    "<td>" + userId + "</td>" +
+                    "<td>" + result.name + "</td>" +
+                    "<td>" + result.phone + "</td>" +
+                    "<td>" + result.birthday + "</td>" +
+                    "<td>" + result.address + "</td>" +
+                    "<td>" +
+                    "<button type='button' class='btn btn-sm btn-info' >删除</button>" +
+                    "<button type='button' class='btn btn-sm btn-warning' >修改</button>" +
+                    "</td>" +
+                    "</tr>";
+
+                $("#tbody").html(dataTR);
+            }
+        });
+    }
+
+
+    //查找
+    function getAll() {
+        $.ajax({
+            url: "/users",
+            type:"get",
+            dataType: "json",
+            success: function (result) {
+
+                var dataTR = "";
+                $.each(result, function (index, value) {
+                    dataTR +=
+                        "<tr>" +
+                        "<td>" + index + "</td>" +
+                        "<td>" + value.name + "</td>" +
+                        "<td>" + value.phone + "</td>" +
+                        "<td>" + value.birthday + "</td>" +
+                        "<td>" + value.address + "</td>" +
+                        "<td>" +
+                        "<button type='button' class='btn btn-sm btn-info' >删除</button>" +
+                        "<button type='button' class='btn btn-sm btn-warning' >修改</button>" +
+                        "</td>" +
+                        "</tr>";
+                });
+
+                $("#tbody").html(dataTR);
+            }
+        });
+    }
+
+    //删除
+    function deleteUser(obj) {
+        var userId = obj.parentNode.parentNode.firstChild.innerHTML;
+
+        $.ajax({
+            url:"/users/"+userId,
+            type:"delete",
+            dataType:"json",
+            success:function (result) {
+                getAll();
+                console.log(result)
+                if(result == "success"){
+                    //提示信息
+                    var msg = '<div class="alert alert-info" role="alert">删除成功!</div>';
+                    $('#msg').html(msg);
+
+                    setTimeout(function(){
+                        $('#msg').empty();
+                    },2000);
+                }else{
+                    //提示信息
+                    var msg = '<div class="alert alert-warning" role="alert">删除失败!</div>';
+                    $('#msg').html(msg);
+
+                    setTimeout(function(){
+                        $('#msg').empty();
+                    },2000);
+                }
+
+            }
+
+        });
+    }
+</script>
+</body>
+</html>
