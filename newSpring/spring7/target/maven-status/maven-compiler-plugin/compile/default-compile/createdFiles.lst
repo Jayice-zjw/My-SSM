@@ -1,0 +1,9 @@
+com\jay\dao\UserDao.class
+com\jay\service\impl\UserServiceImpl.class
+com\jay\aop\MyAspect.class
+com\jay\aop\MyInvocationHandler.class
+com\jay\service\UserService.class
+com\jay\test\test.class
+com\jay\dao\impl\UserDaoImpl.class
+com\jay\log\Transaction.class
+com\jay\log\DoLog.class
